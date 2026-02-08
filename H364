@@ -1,0 +1,321 @@
+# H364 And H624 Programming Language DEV.
+# Simple Variable
+let name = #Mimi#         # a string variable
+let age = 5               # an integer variable
+let height = 0,5           # a float variable
+let isStudent = false       # a bool variable
+
+# Using var.
+print(#Name: # + name)
+print(#Age: # + age)
+print(#Height: # + height)
+print(#Student status: # + isStudent)
+
+# Reassigning the var.
+age = age + 1
+print(#Next year, age will be: # + age)
+
+# Expected output if H364:
+Name: Mimi
+Age: 5
+Height: 0.5
+Student status: false
+Next year, age will be: 6
+
+# Structure Control
+
+let hero = #Dougy#
+let power = 18
+let shield ! power / 2
+
+do when power > 20:
+    print(#Supercharged! Hero:#, hero)
+incell:
+    print(#Power out, Hero:#, hero)
+
+# Power Update To get different branch
+power = 25
+
+do when power > 20:
+    print(#Supercharged! Hero:#, hero)
+incell:
+    print(#Keep going, Hero:#, hero)
+    
+# Expected Output:
+# Keep going, Hero: Dougy
+# Supercharged! Hero: Dougy
+
+# Data Structure
+
+
+let  = [1, 2, 3, 4, 5]
+let doubleSparks ! sparks * 2
+
+print(#Sparks:#, sparks)
+print(#Double Sparks:#, doubleSparks)
+
+# Update sparks
+sparks[0] = 10
+print(#Sparks:#, sparks)
+print(#Double Sparks:#, doubleSparks)
+
+# Expected Output of sparks:
+# Sparks: [1, 2, 3, 4, 5]
+# Double Sparks: [2, 4, 6, 8, 10]
+# Sparks: [10, 2, 3, 4, 5]
+# Double Sparks: [20, 4, 6, 8, 10]
+
+# Spark Map:
+let heroStats = #health# -> 100, #power# -> 20
+let enhancedStats ! heroStats
+enhancedStats[#power#] = enhancedStats[#power#] * 2
+
+print(#Hero Stats:#, heroStats)
+print(#Enhanced Stats:#, enhancedStats)
+
+# Update base map
+heroStats[#power#] = 50
+print(#Enhanced Stats:#, enhancedStats)
+
+# Syntax
+# Variable Syntax:
+
+let <name> = <value>       # variable
+let <name> ! <expression>  # reactive variable
+
+# Types of data of H364:
+Number	10, 3.14	                              integers or floats
+Boolean	true, false	
+Text/String	#Hello#	                         always wrapped in #
+List/Sparks	[1, 2, 3]	                     can be reactive
+Map/SparkMap	#health# -> 100, #power# -> 20   key/value pairs, reactive ok
+Nested	[ #hero# -> #power# -> 10 ]	        hierarchical structures
+
+# Operators:
+
+Arithmetic: + - * / %
+Comparison: == != > < >= <=
+Reactive: ! (for variables that auto-update)
+
+# Controling a Structure (Structure Control):
+
+do when <condition>:
+    <statements>
+incell:
+    <statements>
+
+# incell replaces else
+# do when replaces if
+
+# Loops:
+
+blast while <condition>:
+    <statements>
+# Blast While (reactive/command loop)
+
+for <var> in <start> -> <end>:
+    <statements>  # Going up
+
+for <var> in <start> <- <end>:
+    <statements>  # Going down
+    
+# Output Tools:
+
+# Print.
+
+Print is used to say something to the user. (Example:
+    print(#Hi#)
+# Output: Hi
+Or
+print(#Hero:#, hero, #Power:#, power)
+)
+
+# Shout.
+
+# Like print, but emphasized (UI/log highlight).
+shout(#WARNING: LOW HEALTH#)
+# Output: WARNING: LOW HEALTH
+
+# Ask.
+
+Gets user input.
+
+let name = ask(#What is your name?#)
+print(#Welcome#, name)
+
+# Comfirm
+
+# Returns (True) or (False)
+
+let ready = confirm(#Are you ready?#)
+
+do when ready:
+    print(#Let’s go!#)
+incell:
+    print(#Come back later.#)
+    
+# Wait.
+
+# Pauses execution (same as python..)
+
+print(#Charging...#)
+wait 2
+print(#Charged!#)
+
+# Output:
+
+Charging...
+(2 seconds later)
+Charged!
+
+# Repeat (or Repeater)
+
+# Runs a block a fixed number of times.
+
+repeat 3:
+    print(#Spark!#)
+    
+# Output:
+
+Spark!
+Spark!
+Spark!
+
+# Size.
+
+# Gets size of lists or maps.
+
+let sparks = [1,2,3,4]
+print(size sparks)   # 4
+
+# Output:
+
+4-8.
+
+# Has.
+
+# Check if a map has a key.
+
+do when heroStats has #power#:
+    print(#Power exists#)
+incell:
+    print(#No power found#)
+    
+# Merge
+
+# Combines lists or maps.
+
+let a = [1,2]
+let b = [3,4]
+let c = merge a b
+print(c)   # [1,2,3,4]
+
+# Watch.
+
+# Triggers a block when a value changes.
+
+watch health:
+    print(#Health changed to#, health)
+    
+# Freeze.
+
+# Stops reactivity.
+
+freeze (shield)
+
+# Unfreeze.
+
+# Opposite of freeze...
+
+unfreeze (shield)
+
+# Break
+
+# Stops a loop or a function.
+
+blast while true:
+    print(#Looping#)
+    break
+    
+# Skip
+
+# Skips to next loop iteration.
+
+for i in 1 -> 5:
+    do when i == 3:
+        skip
+    print(i)
+    
+# Output:
+
+1
+2
+4
+5
+
+# Roll
+
+# Randoms a number.
+
+let dice = roll 1..6
+print(#Rolled:#, dice)
+
+# Chance
+
+# Runs a block probabilistically.
+
+chance 30%:
+    print(#Critical hit!#)
+    
+# Peek
+
+# Inspects a value without modifying it.
+
+peek heroStats
+
+# Output:
+
+Attack = 250
+
+# Trace
+
+# Logs reactive dependency flow.
+
+trace energy
+
+# Example Using multiple tools:
+
+let health = 100
+let shield ! health / 2
+
+watch health:
+    shout(#Health is now#, health)
+
+blast while health > 0:
+    let damage = roll 5..20
+    print(#Damage taken:#, damage)
+    health = health - damage
+    wait 1
+
+print(#Game Over#)
+
+# Built-In Libraries (Importations and how to use)
+
+# Importing math from H364 Core:
+
+@math use *
+
+# Using:
+
+@math as 360 add 360
+
+# Output: 720
+
+# Built-in Libraries
+
+#@math
+#@time
+#@random
+#@io
+#@data
+#fetch
